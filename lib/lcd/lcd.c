@@ -25,7 +25,27 @@ esp_err_t lcd_init(i2c_dev_t *dev, i2c_port_t port, gpio_num_t sda_gpio, gpio_nu
     dev->clk_speed = I2C_FREQ_HZ;
     dev->lcd_column = 0;
     dev->lcd_row = 0;
-    return i2c_master_init(port, sda_gpio, scl_gpio);
+    i2c_master_init(port, sda_gpio, scl_gpio);
+    //reset 
+    write_cmd(dev,LCD_ADDR_STATUS1,0xE2);
+    vTaskDelay(5);
+    // normal screen 
+    write_cmd(dev,LCD_ADDR_STATUS1,0xA0);
+    write_cmd(dev,LCD_ADDR_STATUS1,0xC8);
+    // display brightness
+    write_cmd(dev,LCD_ADDR_STATUS1,0x25);
+    write_cmd(dev,LCD_ADDR_STATUS1,0x81);
+    write_cmd(dev,LCD_ADDR_STATUS1,0x20);
+
+    //internal power supply control mode
+    write_cmd(dev,LCD_ADDR_STATUS1,0x2C);
+    write_cmd(dev,LCD_ADDR_STATUS1,0x2E);
+    write_cmd(dev,LCD_ADDR_STATUS1,0x2F);
+
+    write_cmd(dev,LCD_ADDR_STATUS1,0xAF);
+    write_cmd(dev,LCD_ADDR_STATUS1,0x40);
+
+    return ESP_OK;
 }
 
 void cursor_dev(i2c_dev_t *dev,uint8_t x,uint8_t y){
@@ -60,6 +80,18 @@ void lcd_test_pixal(i2c_dev_t *dev){
         for(int i = 0; i<128 ; i++){
             write_cmd(dev,LCD_ADDR_STATUS2,0x00);
             vTaskDelay(5); // Chờ 1000 miligiây (1 giây)
+        }
+    }
+}
+
+void lcd_clear(i2c_dev_t *dev){
+    for(int x = 0; x<8 ;x++){
+        write_cmd(dev,LCD_ADDR_STATUS1,0xb0 + x);
+
+        write_cmd(dev,LCD_ADDR_STATUS1,0x00);
+        write_cmd(dev,LCD_ADDR_STATUS1,0x10);
+        for(int i = 0; i<128 ; i++){
+            write_cmd(dev,LCD_ADDR_STATUS2,0x00);
         }
     }
 }

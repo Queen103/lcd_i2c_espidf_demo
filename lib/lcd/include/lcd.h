@@ -19,4 +19,5 @@ esp_err_t turn_all_pixel(i2c_dev_t *dev);
 void cursor_dev(i2c_dev_t *dev,uint8_t x,uint8_t y);
 void lcd_test_pixal(i2c_dev_t *dev);
 void lcd_test(i2c_dev_t *dev);
+void lcd_clear(i2c_dev_t *dev);
 

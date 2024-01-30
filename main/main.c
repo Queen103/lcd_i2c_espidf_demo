@@ -12,6 +12,7 @@ void app_main()
 {
     if(lcd_init(&dev, I2C_NUM_0, GPIO_NUM_21, GPIO_NUM_22) == ESP_OK){
         printf("duoc roi\n");
+        lcd_clear(&dev);
         // lcd_test(&dev);
         while(1){
             lcd_test_pixal(&dev);
