@@ -20,5 +20,6 @@ void cursor_dev(i2c_dev_t *dev,uint8_t x,uint8_t y);
 void lcd_test_pixal(i2c_dev_t *dev);
 void lcd_test(i2c_dev_t *dev, int x,int y);
 void lcd_clear(i2c_dev_t *dev);
-esp_err_t lcd_display(i2c_dev_t *dev , char *str, int x, int y); // x is row (0->18). y is column (0->8)
+char* intToString(int number);
+esp_err_t lcd_display(i2c_dev_t *dev , char *str, int x, int y); // x is row (0->17). y is column (0->7)
 
