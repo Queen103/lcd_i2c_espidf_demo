@@ -21,8 +21,11 @@ void app_main()
             // // Chỉ định kích thước cần thiết cho mảng
             // char *charArray = malloc(digitCount + 1);   
             // sprintf(charArray, "%d", count);
-            lcd_display(&dev,"Count:",2,0);
-            lcd_display(&dev,intToString(count),2,7);
+            char buffer[32];
+            snprintf(buffer, 31, "Count: %d", count);
+            lcd_display(&dev,buffer,2,0);
+            //lcd_display(&dev,"Count:",2,0);
+            //lcd_display(&dev,intToString(count),2,7);
             count++;
             vTaskDelay(100); // Chờ 1000 miligiây (1 giây)
         }

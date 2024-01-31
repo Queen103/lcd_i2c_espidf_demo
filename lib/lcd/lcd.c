@@ -104,18 +104,18 @@ const uint8_t font_data[95][7] = {
   {0x00,0x00,0x41,0x41,0x7F,0x7F,0x00}      //94= ']'
 };
 
-char* intToString(int number) {
-    // Tính số chữ số của số nguyên
-    int digitCount = snprintf(NULL, 0, "%d", number);
+// char* intToString(int number) {
+//     // Tính số chữ số của số nguyên
+//     int digitCount = snprintf(NULL, 0, "%d", number);
 
-    // Chỉ định kích thước cần thiết cho mảng
-    char *charArray = malloc(digitCount + 1);  // +1 cho kí tự kết thúc chuỗi '\0'
+//     // Chỉ định kích thước cần thiết cho mảng
+//     char *charArray = malloc(digitCount + 1);  // +1 cho kí tự kết thúc chuỗi '\0'
 
-    // Sử dụng sprintf để format giá trị số nguyên thành chuỗi ký tự
-    sprintf(charArray, "%d", number);
+//     // Sử dụng sprintf để format giá trị số nguyên thành chuỗi ký tự
+//     sprintf(charArray, "%d", number);
 
-    return charArray;
-}
+//     return charArray;
+// }
 
 esp_err_t write_cmd(i2c_dev_t *dev, uint8_t lcd_res_address, uint8_t lcd_cmd){
     // CHECK_ARG(dev);

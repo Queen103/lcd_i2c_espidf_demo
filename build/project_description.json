@@ -1,7 +1,7 @@
 {
     "version":            "1",
     "project_name":       "lcd_demo9",
-    "project_version":    "31fd6a4-dirty",
+    "project_version":    "6b9de17-dirty",
     "project_path":       "D:/Code/IoT/HomeOs/lcd_demo9",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.1.2",
     "build_dir":          "D:/Code/IoT/HomeOs/lcd_demo9/build",
