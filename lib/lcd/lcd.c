@@ -104,18 +104,6 @@ const uint8_t font_data[95][7] = {
   {0x00,0x00,0x41,0x41,0x7F,0x7F,0x00}      //94= ']'
 };
 
-// char* intToString(int number) {
-//     // Tính số chữ số của số nguyên
-//     int digitCount = snprintf(NULL, 0, "%d", number);
-
-//     // Chỉ định kích thước cần thiết cho mảng
-//     char *charArray = malloc(digitCount + 1);  // +1 cho kí tự kết thúc chuỗi '\0'
-
-//     // Sử dụng sprintf để format giá trị số nguyên thành chuỗi ký tự
-//     sprintf(charArray, "%d", number);
-
-//     return charArray;
-// }
 
 esp_err_t write_cmd(i2c_dev_t *dev, uint8_t lcd_res_address, uint8_t lcd_cmd){
     // CHECK_ARG(dev);
@@ -134,8 +122,7 @@ esp_err_t lcd_init(i2c_dev_t *dev, i2c_port_t port, gpio_num_t sda_gpio, gpio_nu
     dev->sda_io_num = sda_gpio;
     dev->scl_io_num = scl_gpio;
     dev->clk_speed = I2C_FREQ_HZ;
-    dev->lcd_column = 0;
-    dev->lcd_row = 0;
+    //i2c init
     i2c_master_init(port, sda_gpio, scl_gpio);
     //reset 
     write_cmd(dev,LCD_ADDR_STATUS1,0xE2);
@@ -157,11 +144,6 @@ esp_err_t lcd_init(i2c_dev_t *dev, i2c_port_t port, gpio_num_t sda_gpio, gpio_nu
     write_cmd(dev,LCD_ADDR_STATUS1,0x40);
 
     return ESP_OK;
-}
-
-void cursor_dev(i2c_dev_t *dev,uint8_t x,uint8_t y){
-    dev->lcd_column = x;
-    dev->lcd_row = y;
 }
 
 void WriteFont(i2c_dev_t *dev,int i){
@@ -317,30 +299,3 @@ void lcd_clear(i2c_dev_t *dev){
     }
 }
 
-void lcd_test(i2c_dev_t *dev, int x,int y){
-    write_cmd(dev,LCD_ADDR_STATUS1,0xb0+y);
-
-    write_cmd(dev,LCD_ADDR_STATUS1,0x10+x*7/16);
-    write_cmd(dev,LCD_ADDR_STATUS1,0x00+x*7%16);
-
-    write_cmd(dev,LCD_ADDR_STATUS2,0x00);
-    write_cmd(dev,LCD_ADDR_STATUS2,0x26);
-    write_cmd(dev,LCD_ADDR_STATUS2,0x49);
-    write_cmd(dev,LCD_ADDR_STATUS2,0x49);
-    write_cmd(dev,LCD_ADDR_STATUS2,0x49);
-    write_cmd(dev,LCD_ADDR_STATUS2,0x32);
-    write_cmd(dev,LCD_ADDR_STATUS2,0x00);
-
-    // write_cmd(dev,LCD_ADDR_STATUS2,0x00);
-    // write_cmd(dev,LCD_ADDR_STATUS2,0x7F);
-    // write_cmd(dev,LCD_ADDR_STATUS2,0x49);
-    // write_cmd(dev,LCD_ADDR_STATUS2,0x49);
-    // write_cmd(dev,LCD_ADDR_STATUS2,0x49);
-    // write_cmd(dev,LCD_ADDR_STATUS2,0x41);
-    // write_cmd(dev,LCD_ADDR_STATUS2,0x00);
-
-    // uint8_t data[2][7] = {{0x00,0x63,0x14,0x08,0x14,0x63,0x00},{0x00,0x03,0x04,0x78,0x04,0x03,0x00}};
-    for (uint8_t i=0;i<2;i++) {
-        i2c_dev_write_reg(dev,LCD_ADDR_STATUS2,font_data[i],7);
-    }
-}

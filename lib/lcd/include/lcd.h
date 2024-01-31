@@ -1,3 +1,6 @@
+#ifndef LCD_I2C_H_
+#define LCD_I2C_H_
+
 #include <time.h>
 #include <stdbool.h>
 #include "driver/i2c.h"
@@ -15,11 +18,7 @@
 
 esp_err_t lcd_init(i2c_dev_t *dev, i2c_port_t port, gpio_num_t sda_gpio, gpio_num_t scl_gpio);
 esp_err_t write_cmd(i2c_dev_t *dev, uint8_t lcd_res_address, uint8_t lcd_cmd);
-esp_err_t turn_all_pixel(i2c_dev_t *dev);
-void cursor_dev(i2c_dev_t *dev,uint8_t x,uint8_t y);
 void lcd_test_pixal(i2c_dev_t *dev);
-void lcd_test(i2c_dev_t *dev, int x,int y);
-void lcd_clear(i2c_dev_t *dev);
-// char* intToString(int number);
+void lcd_clear(i2c_dev_t *dev); // clear screen 
 esp_err_t lcd_display(i2c_dev_t *dev , char *str, int x, int y); // x is row (0->17). y is column (0->7)
-
+#endif

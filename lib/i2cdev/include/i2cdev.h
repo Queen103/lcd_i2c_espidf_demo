@@ -12,8 +12,6 @@ typedef struct {
     gpio_num_t sda_io_num;      // GPIO number for I2C sda signal
     gpio_num_t scl_io_num;      // GPIO number for I2C scl signal
     uint32_t clk_speed;             // I2C clock frequency for master mode
-    uint8_t lcd_column;
-    uint8_t lcd_row;
 } i2c_dev_t;
 
 esp_err_t i2c_master_init(i2c_port_t port, int sda, int scl);
